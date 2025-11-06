@@ -3,7 +3,7 @@ import React from 'react';
 
 // GANTI URL ini dengan URL API Backend kamu yang sudah di-DEPLOY (misalnya ke Render/Railway).
 // Contoh URL yang benar: https://lyntrix-api-xxxx.onrender.com/api/posts
-const API_URL = 'https://backend-is-not-deploying-in-render-com/api/posts'; 
+const API_URL = 'social-media-app-production-50ca.up.railway.app'; 
 
 // --- KOMPONEN CHILD: HEADER ---
 // Menampilkan logo dan navigasi utama
