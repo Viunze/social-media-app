@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyntrix Social Media App</title>
+    <!--
+        Memuat Tailwind CSS CDN agar semua class styling di App.jsx berfungsi.
+        Di lingkungan produksi, ini biasanya digantikan oleh build tool seperti Vite/Next.js.
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Menggunakan Font Inter sebagai font default yang bagus dan modern */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Background gelap default untuk konsistensi */
+        }
+    </style>
+</head>
+<body>
+    <!--
+        Ini adalah root DOM node. Aplikasi React kamu (App.jsx) akan di-render di sini.
+    -->
+    <div id="root">
+        <!-- Loading Placeholder saat React di-load -->
+        <div class="min-h-screen flex items-center justify-center bg-gray-900">
+            <div class="text-white text-xl animate-pulse">Memuat Aplikasi Lyntrix...</div>
+        </div>
+    </div>
+    
+    <!--
+        Biasanya, file JavaScript utama (bundle App.jsx) akan dimuat di sini.
+        Dalam lingkungan canvas ini, proses loading React ditangani secara otomatis.
+    -->
+</body>
+</html>
