@@ -1,35 +1,41 @@
 // server/server.js
 
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors'); // Penting untuk komunikasi Frontend-Backend
-const postRoutes = require('./routes/postRoutes');
-
-dotenv.config(); // Load environment variables
+// Import library yang diperlukan
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors'; // <-- Tambahkan ini
+import postRoutes from './routes/postRoutes.js'; 
 
 const app = express();
 
-// Middleware
-app.use(cors()); // Izinkan semua domain mengakses (Bisa diatur lebih spesifik di produksi)
-app.use(express.json()); // Parser untuk body JSON
+// --- Konfigurasi CORS ---
+const allowedOrigins = [
+  // 1. Tambahkan Domain Vercel Kamu di sini
+  'https://social-media-app-kappa-tawny.vercel.app/', 
+  // 2. Tambahkan localhost untuk testing lokal
+  'http://localhost:5173', 
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Izinkan permintaan tanpa origin (seperti aplikasi desktop atau curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+
+// Gunakan middleware CORS
+app.use(cors(corsOptions)); // <-- Gunakan CORS di sini!
+// -----------------------
+
+app.use(express.json());
 
 // Routes
 app.use('/api/posts', postRoutes);
 
-// Koneksi ke MongoDB
-const MONGO_URI = process.env.MONGO_URI;
-
-mongoose.connect(MONGO_URI)
-  .then(() => {
-    console.log('🎉 Berhasil terhubung ke MongoDB Atlas!');
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Koneksi MongoDB Gagal:', err.message);
-    // Keluar dari aplikasi jika gagal koneksi
-    process.exit(1); 
-  });
+// ... (sisanya, seperti koneksi MongoDB)
